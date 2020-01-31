@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
-using System;
 using System.IO;
+using ArdalisRating.Policies;
 using Xunit;
 
 namespace ArdalisRating.Tests
@@ -10,7 +10,7 @@ namespace ArdalisRating.Tests
 [Fact]
 public void ReturnsRatingOf10000For200000LandPolicy()
 {
-    var policy = new Policy
+    var policy = new LandPolicy
     {
         Type = PolicyType.Land,
         BondAmount = 200000,
@@ -20,8 +20,7 @@ public void ReturnsRatingOf10000For200000LandPolicy()
     File.WriteAllText("policy.json", json);
 
     var engine = new RatingEngine();
-    engine.Rate();
-    var result = engine.Rating;
+    var result = engine.Rate();
 
     Assert.Equal(10000, result);
 }
@@ -29,7 +28,7 @@ public void ReturnsRatingOf10000For200000LandPolicy()
         [Fact]
         public void ReturnsRatingOf0For200000BondOn260000LandPolicy()
         {
-            var policy = new Policy
+            var policy = new LandPolicy
             {
                 Type = PolicyType.Land,
                 BondAmount = 200000,
@@ -39,8 +38,7 @@ public void ReturnsRatingOf10000For200000LandPolicy()
             File.WriteAllText("policy.json", json);
 
             var engine = new RatingEngine();
-            engine.Rate();
-            var result = engine.Rating;
+            var result = engine.Rate();
 
             Assert.Equal(0, result);
         }
